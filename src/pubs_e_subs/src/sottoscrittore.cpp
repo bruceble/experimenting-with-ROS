@@ -3,11 +3,13 @@
   Seguo i tutorial ROS di sottoscrittori e editori
 */
 #include "ros/ros.h"
-#include "std_msgs/String.h"
+#include "std_msgs/Float64MultiArray.h"
 
-void chatterCallback(const std_msgs::String::ConstPtr& msg)
+#include <translator_msg_pkg/Translator.h>
+
+void chatterCallback(const translator_msg_pkg::Translator& msg)
 {
-  ROS_INFO("I heard: [%s]", msg->data.c_str());
+  ROS_INFO("I heard: [ [%s]: %f, %f, %f, %f]", msg.state_name.c_str(), msg.position_data.at(0), msg.position_data.at(1), msg.position_data.at(2), msg.position_data.at(3));
 }
 
 int main(int argc, char **argv)
