@@ -6,10 +6,17 @@
 #include "std_msgs/Float64MultiArray.h"
 
 #include <translator_msg_pkg/Translator.h>
+#include <nested_msg/msg_env.h>
+#include <nested_msg/msg1.h>
+#include <nested_msg/msg2.h>
 
-void chatterCallback(const translator_msg_pkg::Translator& msg)
+void chatterCallback(const nested_msg::msg_env & msg)
 {
-  ROS_INFO("I heard: [ [%s]: %f, %f, %f, %f]", msg.state_name.c_str(), msg.position_data.at(0), msg.position_data.at(1), msg.position_data.at(2), msg.position_data.at(3));
+  for(int i = 0; i<msg.m1.size(); i++){
+    for(int j = 0; j<msg.m1.at(i).m2.size(); j++){
+      ROS_INFO("I heard: [ SID: %d, MID: %d ]", msg.sid, msg.m1.at(msg.sid).mid);
+    }
+  }
 }
 
 int main(int argc, char **argv)
